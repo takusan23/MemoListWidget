@@ -36,4 +36,12 @@ interface ListDBDao {
     @Query("SELECT * FROM list WHERE date >= :date")
     fun getItemFilter(date: Long = System.currentTimeMillis()): List<ListDBEntity>
 
+    /** カテゴリを指定した [getItemFilter] */
+    @Query("SELECT * FROM list WHERE date >= :date AND category = :category")
+    fun getItemCategoryFilter(category: String, date: Long = System.currentTimeMillis()): List<ListDBEntity>
+
+    /** カテゴリだけを取り出す。SELECT DISTINCT で重複消せる */
+    @Query("SELECT DISTINCT category FROM list ")
+    fun getCategoryList(): List<String>
+
 }

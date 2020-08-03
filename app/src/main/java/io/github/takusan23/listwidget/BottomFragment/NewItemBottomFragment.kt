@@ -60,6 +60,7 @@ class NewItemBottomFragment : BottomSheetDialogFragment() {
                 } ?: return@launch // なければ終了
                 bottom_fragment_new_item_content.setText(item.content)
                 bottom_fragment_new_item_description.setText(item.description)
+                bottom_fragment_new_item_category.setText(item.category)
                 bottom_fragment_new_item_color.chipIconTint = ColorStateList.valueOf(Color.parseColor(item.color))
                 // いろ
                 colorHexCode = item.color
@@ -76,14 +77,28 @@ class NewItemBottomFragment : BottomSheetDialogFragment() {
                 withContext(Dispatchers.IO) {
                     val content = bottom_fragment_new_item_content.text.toString()
                     val description = bottom_fragment_new_item_description.text.toString()
+                    val category = bottom_fragment_new_item_category.text.toString()
                     // 内容。更新と分岐
                     if (arguments?.getInt("id") != null) {
                         // 更新
-                        val data = ListDBEntity(content = content, description = description, date = calendar.time.time, color = colorHexCode, id = arguments!!.getInt("id"))
+                        val data = ListDBEntity(
+                            content = content,
+                            description = description,
+                            date = calendar.time.time,
+                            color = colorHexCode,
+                            id = arguments!!.getInt("id"),
+                            category = category
+                        )
                         InitListDB(requireContext()).listDB.listDBDao().update(data)
                     } else {
                         // 新規登録
-                        val data = ListDBEntity(content = content, description = description, date = calendar.time.time, color = colorHexCode)
+                        val data = ListDBEntity(
+                            content = content,
+                            description = description,
+                            date = calendar.time.time,
+                            color = colorHexCode,
+                            category = category
+                        )
                         InitListDB(requireContext()).listDB.listDBDao().insert(data)
                     }
                 }

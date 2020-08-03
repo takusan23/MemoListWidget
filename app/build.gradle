@@ -34,6 +34,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    // Preference
+    implementation "androidx.preference:preference:1.1.1"
     // ColorPicker
     implementation 'com.jaredrummler:colorpicker:1.1.0'
     // Material Design

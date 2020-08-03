@@ -11,6 +11,7 @@ import androidx.room.PrimaryKey
  * @param description サブテキスト的な
  * @param id 主キー
  * @param color カラーコード。省略時白
+ * @param category かてごりー
  * */
 @Entity(tableName = "list")
 data class ListDBEntity(
@@ -18,5 +19,6 @@ data class ListDBEntity(
     @ColumnInfo(name = "content") val content: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "date") val date: Long,
-    @ColumnInfo(name = "color") val color: String = "#ffffff"
+    @ColumnInfo(name = "color") val color: String = "#ffffff",
+    @ColumnInfo(name = "category") val category: String
 )

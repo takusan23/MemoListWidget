@@ -44,6 +44,7 @@ class ListRecyclerViewAdapter(private val arrayList: ArrayList<ListDBEntity>) :
             linearLayout.background = ColorDrawable(Color.parseColor(item.color))
             contentTextView.text = item.content
             descriptionTextView.text = item.description
+            categoryTextView.text = item.category
             dateTextView.text = item.date.toFormat() // 拡張関数
             // 削除ボタン
             deleteImageView.setOnClickListener {
@@ -91,6 +92,7 @@ class ListRecyclerViewAdapter(private val arrayList: ArrayList<ListDBEntity>) :
         val contentTextView = itemView.findViewById<TextView>(R.id.adapter_list_content_textview)
         val descriptionTextView = itemView.findViewById<TextView>(R.id.adapter_list_description_textview)
         val dateTextView = itemView.findViewById<TextView>(R.id.adapter_list_date_textview)
+        val categoryTextView = itemView.findViewById<TextView>(R.id.adapter_list_date_category)
         val deleteImageView = itemView.findViewById<ImageView>(R.id.adapter_list_delete_button)
         val editButton = itemView.findViewById<ImageView>(R.id.adapter_list_edit_button)
         val copyButton = itemView.findViewById<ImageView>(R.id.adapter_list_copy_button)

@@ -20,6 +20,7 @@
         <TextView
             android:id="@+id/widget_listview_item_content_textview"
             android:layout_width="match_parent"
+            android:gravity="center_vertical"
             android:layout_height="wrap_content"
             android:text=""
             android:textStyle="bold" />

@@ -7,6 +7,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import io.github.takusan23.listwidget.MainActivity
 import io.github.takusan23.listwidget.R
 
@@ -28,6 +30,32 @@ class ListWidget : AppWidgetProvider() {
     override fun onDisabled(context: Context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+    override fun onReceive(context: Context?, intent: Intent?) {
+        super.onReceive(context, intent)
+        val category = intent?.getStringExtra("category")
+        when {
+            intent?.getBooleanExtra("back", false) == true && category != "戻る" -> {
+                // 戻る選択時
+                // カテゴリを無へ
+                PreferenceManager.getDefaultSharedPreferences(context).edit {
+                    putString("widget_category", "")
+                }
+                if (context != null) {
+                    updateAppWidget(context)
+                }
+            }
+            else -> {
+                // カテゴリ指定
+                PreferenceManager.getDefaultSharedPreferences(context).edit {
+                    putString("widget_category", category)
+                }
+                if (context != null) {
+                    updateAppWidget(context)
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -40,6 +68,10 @@ internal fun updateAppWidget(context: Context) {
     // ListView
     val remoteViewsFactoryIntent = Intent(context, ListViewWidgetService::class.java)
     views.setRemoteAdapter(R.id.widget_listview, remoteViewsFactoryIntent)
+    // ListViewの中身クリックさせるなら必要
+    val itemClick = Intent(context, ListWidget::class.java)
+    val itemClickPendingIntent = PendingIntent.getBroadcast(context, 0, itemClick, PendingIntent.FLAG_UPDATE_CURRENT)
+    views.setPendingIntentTemplate(R.id.widget_listview, itemClickPendingIntent)
     // アプリ起動
     val intent = Intent(context, MainActivity::class.java)
     intent.putExtra("new", true) // 追加画面表示

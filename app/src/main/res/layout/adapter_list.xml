@@ -28,6 +28,13 @@
             android:text="" />
 
         <TextView
+            android:id="@+id/adapter_list_date_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="" />
+
+        <TextView
             android:id="@+id/adapter_list_date_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
