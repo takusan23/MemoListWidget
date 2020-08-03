@@ -28,8 +28,12 @@ interface ListDBDao {
     @Query("DELETE FROM list WHERE _id = :id")
     fun deleteById(id: Int)
 
+    /** IDを使ってデータベースから取得する */
+    @Query("SELECT * FROM list WHERE _id = :id")
+    fun findById(id: Int): ListDBEntity?
+
     /** 未来の日付の設定された値を取り出す。引数は省略していいよ */
     @Query("SELECT * FROM list WHERE date >= :date")
-    fun getItemFilter(date: Long = System.currentTimeMillis() / 1000): List<ListDBEntity>
+    fun getItemFilter(date: Long = System.currentTimeMillis()): List<ListDBEntity>
 
 }
